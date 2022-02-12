@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.trackmysleepquality.database.SleepDatabaseDao
 
+//handle dependecy injection
 class SleepQualityViewModelFactory(
     private val sleepNightKey: Long,
     private val dataSource: SleepDatabaseDao
