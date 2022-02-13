@@ -22,6 +22,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -55,9 +56,20 @@ class SleepTrackerFragment : Fragment() {
 
         val viewModelFactory = SleepTrackerViewModelFactory(dataSource, application)
 
+
         val sleepTrackerViewModel =
             ViewModelProvider(
                 this, viewModelFactory).get(SleepTrackerViewModel::class.java)
+
+        val adapter=SleepNightAdapter()
+        binding.sleepList.adapter = adapter
+
+        sleepTrackerViewModel.nights.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.data=it
+            }
+        })
+
 
         binding.sleepTrackerViewModel = sleepTrackerViewModel
         binding.lifecycleOwner=this
